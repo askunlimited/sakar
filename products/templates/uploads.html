@@ -2,10 +2,42 @@
 
 {% block content %}
 <br>
-<form method="POST" action="/">
+<form action="" method="POST">
     {% csrf_token %}
     {{form}}
     <input type="submit" name="Add New">
 </form>
 
+
+<div class="col-md-12">
+        <h5>LIST OF PRODUCTS</h5>
+        <hr>
+        <div class="card card-body">
+            <table class="table table-sm">
+                <tr>
+                    <th>Product Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>ROI</th>
+                    <th>Stock</th>
+                    <th>Discount</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+
+                {% for products in product %}
+                <tr>
+                    <td>{{ products.name }}</td>
+                    <td>{{ products.description }}</td>
+                    <td>{{ products.price }}</td>
+                    <td>{{ products.roi }}</td>
+                    <td>{{ products.stock }}</td>
+                    <td>{{ products.discount }}</td>
+                    <td><a class="btn btn-sm btn-info" href="">Update</a></td>
+                    <td><a class="btn btn-sm btn-danger" href="">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
 {% endblock %}

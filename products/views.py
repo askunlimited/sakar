@@ -14,13 +14,27 @@ def index(request):
 
 
 def uploads(request):
+    products = Product.objects.all()
     form = ProductForm()
 
     if request.method == 'POST':
         form = ProductForm(request.POST)
         if form.is_valid():
             form.save()
-        return redirect('uploads/')
+            return redirect('/')
 
-    context = {'form':form}
+    context = {'product': products, 'form':form}
     return render(request, 'uploads.html', context)
+
+
+def updateProducts(request, pk):
+    product = Product.objects.get(id=pk)
+    form = ProductForm(instance=product)
+    if request.method == 'POST':
+        form = ProductForm(request.POST, instance=product)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    context = {'form':form}
+    return render(request, 'uploads/update_form.html', context)
+
